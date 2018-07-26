@@ -10,6 +10,28 @@ import UIKit
 
 class ConfigViewController: UITableViewController {
     
+    //MARK - Custom Cell Classes
+    
+    class StartDelayCell : UITableViewCell {
+        @IBOutlet weak var startDelayLabel: UILabel!
+    }
+    
+    class UnitsCell : UITableViewCell {
+        @IBOutlet weak var unitsLabel: UILabel!
+    }
+    
+    class VoiceFeedbackCell : UITableViewCell {
+        @IBOutlet weak var voiceFeedbackLabel: UILabel!
+        
+    }
+    
+    class ConfigureDisplaysCell : UITableViewCell {
+        @IBOutlet weak var configureDisplaysLabel: UILabel!
+    
+    }
+    
+    //MARK - Variables
+    
     let defaults = UserDefaults.standard
     
     enum UnitType: String {
@@ -44,10 +66,16 @@ class ConfigViewController: UITableViewController {
     }
     
     var configSettings = ["Units", "Voice Feedback", "Configurable Displays", "Start Delay"]
+
+    @IBOutlet weak var configTableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.tableView.register(ConfigViewController.UnitsCell.self, forCellReuseIdentifier: "Units")
+        self.tableView.register(ConfigViewController.VoiceFeedbackCell.self, forCellReuseIdentifier: "VoiceFeedback")
+        self.tableView.register(ConfigViewController.ConfigureDisplaysCell.self, forCellReuseIdentifier: "configureDisplay")
+        self.tableView.register(ConfigViewController.StartDelayCell.self, forCellReuseIdentifier: "StartDelay")
+
 
     }
     
@@ -58,9 +86,33 @@ class ConfigViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ConfigCell", for: indexPath)
-        cell.textLabel?.text = configSettings[indexPath.row]
-        return cell
+        switch configSettings[indexPath.row] {
+        case "Units":
+            let cell:UnitsCell = self.configTableView.dequeueReusableCell(withIdentifier: "Units", for: indexPath) as! ConfigViewController.UnitsCell
+            cell.unitsLabel?.text = "Units"
+            cell.textLabel?.text = "Units"
+
+            return cell
+        case "Voice Feedback":
+            let cell:VoiceFeedbackCell = self.configTableView.dequeueReusableCell(withIdentifier: "VoiceFeedback", for: indexPath) as! ConfigViewController.VoiceFeedbackCell
+            cell.voiceFeedbackLabel?.text = "VoiceFeedback"
+            cell.textLabel?.text = "VoiceFeedback"
+
+            return cell
+        case "Configurable Displays":
+            let cell:ConfigureDisplaysCell = self.configTableView.dequeueReusableCell(withIdentifier: "configureDisplay", for: indexPath) as! ConfigViewController.ConfigureDisplaysCell
+            cell.configureDisplaysLabel?.text = "configureDisplay"
+            cell.textLabel?.text = "configureDisplay"
+
+            return cell
+        case "Start Delay":
+            let cell:StartDelayCell = self.configTableView.dequeueReusableCell(withIdentifier: "StartDelay", for: indexPath) as! ConfigViewController.StartDelayCell
+            cell.startDelayLabel?.text = "Start Delay"
+            cell.textLabel?.text = "Start Delay"
+            return cell
+        default:
+            return UITableViewCell()
+        }
         
     }
     

@@ -14,6 +14,14 @@
 		1B079679210578C70095FFAC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1B079678210578C70095FFAC /* Assets.xcassets */; };
 		1B07967C210578C70095FFAC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1B07967A210578C70095FFAC /* LaunchScreen.storyboard */; };
 		1B07968421066EF60095FFAC /* ConfigViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B07968321066EF60095FFAC /* ConfigViewController.swift */; };
+		1B0796862107965F0095FFAC /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0796852107965F0095FFAC /* SettingsViewController.swift */; };
+		1B0796882107E7A30095FFAC /* VoiceSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0796872107E7A30095FFAC /* VoiceSettingsViewController.swift */; };
+		1B07968B210819980095FFAC /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B07968A210819980095FFAC /* CoreDataStack.swift */; };
+		1B07968E210819D90095FFAC /* SecureRun.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1B07968C210819D90095FFAC /* SecureRun.xcdatamodeld */; };
+		1B0796932108202A0095FFAC /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B0796922108202A0095FFAC /* CoreLocation.framework */; };
+		1B079695210820790095FFAC /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B079694210820790095FFAC /* LocationManager.swift */; };
+		1B079697210820D50095FFAC /* UnitExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B079696210820D50095FFAC /* UnitExtensions.swift */; };
+		1B079699210821210095FFAC /* FormatDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B079698210821210095FFAC /* FormatDisplay.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +34,14 @@
 		1B07967B210578C70095FFAC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1B07967D210578C70095FFAC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1B07968321066EF60095FFAC /* ConfigViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigViewController.swift; sourceTree = "<group>"; };
+		1B0796852107965F0095FFAC /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		1B0796872107E7A30095FFAC /* VoiceSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceSettingsViewController.swift; sourceTree = "<group>"; };
+		1B07968A210819980095FFAC /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		1B07968D210819D90095FFAC /* SecureRun.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SecureRun.xcdatamodel; sourceTree = "<group>"; };
+		1B0796922108202A0095FFAC /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		1B079694210820790095FFAC /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		1B079696210820D50095FFAC /* UnitExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitExtensions.swift; sourceTree = "<group>"; };
+		1B079698210821210095FFAC /* FormatDisplay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormatDisplay.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +49,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1B0796932108202A0095FFAC /* CoreLocation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -43,7 +60,9 @@
 			isa = PBXGroup;
 			children = (
 				1B07966D210578C60095FFAC /* Secure Run */,
+				1B079689210819770095FFAC /* CoreData */,
 				1B07966C210578C60095FFAC /* Products */,
+				1B07968F21081D120095FFAC /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -66,8 +85,30 @@
 				1B07967A210578C70095FFAC /* LaunchScreen.storyboard */,
 				1B07967D210578C70095FFAC /* Info.plist */,
 				1B079675210578C60095FFAC /* Secure_Run.xcdatamodeld */,
+				1B0796852107965F0095FFAC /* SettingsViewController.swift */,
+				1B0796872107E7A30095FFAC /* VoiceSettingsViewController.swift */,
+				1B079694210820790095FFAC /* LocationManager.swift */,
+				1B079696210820D50095FFAC /* UnitExtensions.swift */,
+				1B079698210821210095FFAC /* FormatDisplay.swift */,
 			);
 			path = "Secure Run";
+			sourceTree = "<group>";
+		};
+		1B079689210819770095FFAC /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				1B07968A210819980095FFAC /* CoreDataStack.swift */,
+				1B07968C210819D90095FFAC /* SecureRun.xcdatamodeld */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		1B07968F21081D120095FFAC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1B0796922108202A0095FFAC /* CoreLocation.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -102,6 +143,14 @@
 				TargetAttributes = {
 					1B07966A210578C60095FFAC = {
 						CreatedOnToolsVersion = 9.4.1;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.Maps.iOS = {
+								enabled = 0;
+							};
+						};
 					};
 				};
 			};
@@ -141,10 +190,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1B07968B210819980095FFAC /* CoreDataStack.swift in Sources */,
+				1B079697210820D50095FFAC /* UnitExtensions.swift in Sources */,
 				1B079671210578C60095FFAC /* ViewController.swift in Sources */,
+				1B07968E210819D90095FFAC /* SecureRun.xcdatamodeld in Sources */,
 				1B07966F210578C60095FFAC /* AppDelegate.swift in Sources */,
+				1B0796882107E7A30095FFAC /* VoiceSettingsViewController.swift in Sources */,
 				1B07968421066EF60095FFAC /* ConfigViewController.swift in Sources */,
+				1B0796862107965F0095FFAC /* SettingsViewController.swift in Sources */,
 				1B079677210578C60095FFAC /* Secure_Run.xcdatamodeld in Sources */,
+				1B079695210820790095FFAC /* LocationManager.swift in Sources */,
+				1B079699210821210095FFAC /* FormatDisplay.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -351,6 +407,16 @@
 			);
 			currentVersion = 1B079676210578C60095FFAC /* Secure_Run.xcdatamodel */;
 			path = Secure_Run.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+		1B07968C210819D90095FFAC /* SecureRun.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				1B07968D210819D90095FFAC /* SecureRun.xcdatamodel */,
+			);
+			currentVersion = 1B07968D210819D90095FFAC /* SecureRun.xcdatamodel */;
+			path = SecureRun.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
