@@ -26,14 +26,31 @@ struct FormatDisplay {
     static func pace(distance: Measurement<UnitLength>, seconds: Int, outputUnit: UnitSpeed) -> String {
         let formatter = MeasurementFormatter()
         let trimNumber = NumberFormatter()
-        trimNumber.maximumFractionDigits = 2
+        trimNumber.maximumFractionDigits = 0
         formatter.numberFormatter = trimNumber
         formatter.unitOptions = [.providedUnit]
         let speedMagnitude = seconds != 0 ? distance.value / Double(seconds) : 0
+        let miD = Measurement(value: distance.value, unit: UnitLength.meters).converted(to: UnitLength.miles)
+        
+        //print("minutes \(seconds/60)")
+        if seconds > 0 {
+            let paceDecimal = (Double(seconds)/60.0 / miD.value)
+            if paceDecimal > 0 && paceDecimal < 100 {
+                let paceSeconds = paceDecimal.truncatingRemainder(dividingBy: 1) * 60
+                let paceSecondsString = String(format: "%02.0f", paceSeconds)
+                let returnString = ("\(Int(paceDecimal))" + ":" + paceSecondsString)
+                return returnString
+            }
+        }
         let speed = Measurement(value: speedMagnitude, unit: UnitSpeed.minutesPerMile)
-        let localeSpeed = formatter.string(from: speed.converted(to: outputUnit))
-        print(localeSpeed)
-        return localeSpeed
+        let minutePace = (speed.value.truncatingRemainder(dividingBy: 1) * 59)
+        if minutePace < 10 {
+          let localeSpeed = formatter.string(from: speed.converted(to: UnitSpeed.minutesPerMile)) + ": " + String(format: "%02.0f", minutePace)
+            return localeSpeed
+        } else {
+            let localeSpeed = formatter.string(from: speed.converted(to: UnitSpeed.minutesPerMile)) + ": " + String(format: "%02.0f", minutePace)
+            return localeSpeed
+        }
     }
     
     static func date(_ timestamp: Date?) -> String {
