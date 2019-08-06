@@ -30,8 +30,6 @@ class ResultsViewCell: UITableViewCell {
         time.translatesAutoresizingMaskIntoConstraints = false
         return time
     }()
-    //@IBOutlet weak var time: UILabel!
-    //@IBOutlet weak var calories: UILabel!
     
     var calories: UILabel = {
         let calories = UILabel()
@@ -45,13 +43,19 @@ class ResultsViewCell: UITableViewCell {
         return maximumPace
     }()
     
-    //@IBOutlet weak var maximumPace: UILabel!
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
-
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        self.addSubview(distance)
+        self.addSubview(time)
+        
+        distance.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0).isActive = true
+        distance.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0).isActive = true
+        
+    }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
