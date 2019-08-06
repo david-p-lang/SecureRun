@@ -6,6 +6,7 @@
 //  Copyright © 2018 David Lang. All rights reserved.
 //
 
+
 import UIKit
 import CoreData
 
@@ -16,9 +17,6 @@ class ResultsViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        print("\(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first)")
-
         
         guard let appDelegate =
             UIApplication.shared.delegate as? AppDelegate else {
@@ -51,8 +49,8 @@ class ResultsViewController: UITableViewController {
         let dateTxt = FormatDisplay.date(runs[indexPath.row]?.timestamp)
         cell.date.text = "Date: " + dateTxt
         cell.distance.text = "Distance: " + FormatDisplay.distance((runs[indexPath.row]?.distance)!)
-        print("results view : \(runs[indexPath.row]?.distance)")
-        print("\(FormatDisplay.distance((runs[indexPath.row]?.distance)!))")
+        //print("results view : \(runs[indexPath.row]?.distance)")
+        //print("\(FormatDisplay.distance((runs[indexPath.row]?.distance)!))")
         cell.time.text = "Duration: " + FormatDisplay.time((Int(runs[indexPath.row]!.duration)))
         //cell.calories?.text = "Calories:"
         cell.maximumPace.text = "Pace:"
@@ -66,15 +64,5 @@ class ResultsViewController: UITableViewController {
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-    
 
 }

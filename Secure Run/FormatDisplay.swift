@@ -1,3 +1,34 @@
+//
+/**
+ * Copyright (c) 2017 Razeware LLC
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * Notwithstanding the foregoing, you may not use, copy, modify, merge, publish,
+ * distribute, sublicense, create a derivative work, and/or sell copies of the
+ * Software in any work that is designed, intended, or marketed for pedagogical or
+ * instructional purposes related to programming, coding, application development,
+ * or information technology.  Permission for such use, copying, modification,
+ * merger, publication, distribution, sublicensing, creation of derivative works,
+ * or sale is expressly withheld.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
 import Foundation
 
 struct FormatDisplay {
@@ -38,17 +69,21 @@ struct FormatDisplay {
             if paceDecimal > 0 && paceDecimal < 100 {
                 let paceSeconds = paceDecimal.truncatingRemainder(dividingBy: 1) * 60
                 let paceSecondsString = String(format: "%02.0f", paceSeconds)
-                let returnString = ("\(Int(paceDecimal))" + ":" + paceSecondsString)
+                let tempString = "\(Int(paceDecimal))"
+                let minuteString = tempString.trimmingCharacters(in: .whitespaces)
+                let returnString = (minuteString + ":" + paceSecondsString)
                 return returnString
             }
+        } else {
+            return "0:00"
         }
         let speed = Measurement(value: speedMagnitude, unit: UnitSpeed.minutesPerMile)
         let minutePace = (speed.value.truncatingRemainder(dividingBy: 1) * 59)
         if minutePace < 10 {
-          let localeSpeed = formatter.string(from: speed.converted(to: UnitSpeed.minutesPerMile)) + ": " + String(format: "%02.0f", minutePace)
+          let localeSpeed = formatter.string(from: speed.converted(to: UnitSpeed.minutesPerMile)) + ":" + String(format: "%02.0f", minutePace)
             return localeSpeed
         } else {
-            let localeSpeed = formatter.string(from: speed.converted(to: UnitSpeed.minutesPerMile)) + ": " + String(format: "%02.0f", minutePace)
+            let localeSpeed = formatter.string(from: speed.converted(to: UnitSpeed.minutesPerMile)) + ":" + String(format: "%02.0f", minutePace)
             return localeSpeed
         }
     }

@@ -10,7 +10,6 @@
 		1B07966F210578C60095FFAC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B07966E210578C60095FFAC /* AppDelegate.swift */; };
 		1B079671210578C60095FFAC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B079670210578C60095FFAC /* ViewController.swift */; };
 		1B079674210578C60095FFAC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1B079672210578C60095FFAC /* Main.storyboard */; };
-		1B079677210578C60095FFAC /* Secure_Run.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1B079675210578C60095FFAC /* Secure_Run.xcdatamodeld */; };
 		1B079679210578C70095FFAC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1B079678210578C70095FFAC /* Assets.xcassets */; };
 		1B07967C210578C70095FFAC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1B07967A210578C70095FFAC /* LaunchScreen.storyboard */; };
 		1B0796862107965F0095FFAC /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0796852107965F0095FFAC /* SettingsViewController.swift */; };
@@ -24,6 +23,16 @@
 		1B07969F210BFC780095FFAC /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B07969E210BFC780095FFAC /* ResultsViewController.swift */; };
 		1B0796A1210CABF50095FFAC /* ResultsViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0796A0210CABF50095FFAC /* ResultsViewCell.swift */; };
 		1B0796A3210FD0090095FFAC /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B0796A2210FD0090095FFAC /* CoreMotion.framework */; };
+		1B0A39A32124741A006444DB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1B0A39A22124741A006444DB /* Assets.xcassets */; };
+		1B4DD88B2162E5C5006344A8 /* AssetsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B4DD88A2162E5C5006344A8 /* AssetsViewController.swift */; };
+		1B4DD88D2162E80F006344A8 /* VideoReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B4DD88C2162E80F006344A8 /* VideoReader.swift */; };
+		1B4DD88F2162F33C006344A8 /* VisionTrackerProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B4DD88E2162F33C006344A8 /* VisionTrackerProcessor.swift */; };
+		1B4DD8912162F8A7006344A8 /* CommonTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B4DD8902162F8A7006344A8 /* CommonTypes.swift */; };
+		1BA44D5A2151E1EB0061E133 /* FormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA44D592151E1EB0061E133 /* FormViewController.swift */; };
+		1BA44D5C215205050061E133 /* CadenceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA44D5B215205050061E133 /* CadenceViewController.swift */; };
+		1BA44D5E21527F780061E133 /* ActivityHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA44D5D21527F780061E133 /* ActivityHelper.swift */; };
+		1BA44D602152DE170061E133 /* RunClassifier2.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 1BA44D5F2152DE170061E133 /* RunClassifier2.mlmodel */; };
+		1BA44D622152DE230061E133 /* StrikeClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 1BA44D612152DE230061E133 /* StrikeClassifier.mlmodel */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,7 +40,6 @@
 		1B07966E210578C60095FFAC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1B079670210578C60095FFAC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		1B079673210578C60095FFAC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		1B079676210578C60095FFAC /* Secure_Run.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Secure_Run.xcdatamodel; sourceTree = "<group>"; };
 		1B079678210578C70095FFAC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1B07967B210578C70095FFAC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1B07967D210578C70095FFAC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -46,6 +54,16 @@
 		1B07969E210BFC780095FFAC /* ResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
 		1B0796A0210CABF50095FFAC /* ResultsViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsViewCell.swift; sourceTree = "<group>"; };
 		1B0796A2210FD0090095FFAC /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		1B0A39A22124741A006444DB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		1B4DD88A2162E5C5006344A8 /* AssetsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetsViewController.swift; sourceTree = "<group>"; };
+		1B4DD88C2162E80F006344A8 /* VideoReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoReader.swift; sourceTree = "<group>"; };
+		1B4DD88E2162F33C006344A8 /* VisionTrackerProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisionTrackerProcessor.swift; sourceTree = "<group>"; };
+		1B4DD8902162F8A7006344A8 /* CommonTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonTypes.swift; sourceTree = "<group>"; };
+		1BA44D592151E1EB0061E133 /* FormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FormViewController.swift; sourceTree = "<group>"; };
+		1BA44D5B215205050061E133 /* CadenceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CadenceViewController.swift; sourceTree = "<group>"; };
+		1BA44D5D21527F780061E133 /* ActivityHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityHelper.swift; sourceTree = "<group>"; };
+		1BA44D5F2152DE170061E133 /* RunClassifier2.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = RunClassifier2.mlmodel; sourceTree = "<group>"; };
+		1BA44D612152DE230061E133 /* StrikeClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = StrikeClassifier.mlmodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +82,7 @@
 		1B079662210578C60095FFAC = {
 			isa = PBXGroup;
 			children = (
+				1B0A39A22124741A006444DB /* Assets.xcassets */,
 				1B07966D210578C60095FFAC /* Secure Run */,
 				1B079689210819770095FFAC /* CoreData */,
 				1B07966C210578C60095FFAC /* Products */,
@@ -88,10 +107,12 @@
 				1B079678210578C70095FFAC /* Assets.xcassets */,
 				1B07967A210578C70095FFAC /* LaunchScreen.storyboard */,
 				1B07967D210578C70095FFAC /* Info.plist */,
-				1B079675210578C60095FFAC /* Secure_Run.xcdatamodeld */,
 				1B079694210820790095FFAC /* LocationManager.swift */,
 				1B079696210820D50095FFAC /* UnitExtensions.swift */,
 				1B079698210821210095FFAC /* FormatDisplay.swift */,
+				1BA44D5D21527F780061E133 /* ActivityHelper.swift */,
+				1BA44D5F2152DE170061E133 /* RunClassifier2.mlmodel */,
+				1BA44D612152DE230061E133 /* StrikeClassifier.mlmodel */,
 			);
 			path = "Secure Run";
 			sourceTree = "<group>";
@@ -122,6 +143,12 @@
 				1B079670210578C60095FFAC /* ViewController.swift */,
 				1B07969E210BFC780095FFAC /* ResultsViewController.swift */,
 				1B0796A0210CABF50095FFAC /* ResultsViewCell.swift */,
+				1BA44D592151E1EB0061E133 /* FormViewController.swift */,
+				1BA44D5B215205050061E133 /* CadenceViewController.swift */,
+				1B4DD88A2162E5C5006344A8 /* AssetsViewController.swift */,
+				1B4DD88C2162E80F006344A8 /* VideoReader.swift */,
+				1B4DD88E2162F33C006344A8 /* VisionTrackerProcessor.swift */,
+				1B4DD8902162F8A7006344A8 /* CommonTypes.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -158,6 +185,7 @@
 				TargetAttributes = {
 					1B07966A210578C60095FFAC = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1030;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -194,6 +222,7 @@
 			files = (
 				1B07967C210578C70095FFAC /* LaunchScreen.storyboard in Resources */,
 				1B079679210578C70095FFAC /* Assets.xcassets in Resources */,
+				1B0A39A32124741A006444DB /* Assets.xcassets in Resources */,
 				1B079674210578C60095FFAC /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -209,14 +238,22 @@
 				1B079697210820D50095FFAC /* UnitExtensions.swift in Sources */,
 				1B079671210578C60095FFAC /* ViewController.swift in Sources */,
 				1B07968E210819D90095FFAC /* SecureRun.xcdatamodeld in Sources */,
+				1B4DD88D2162E80F006344A8 /* VideoReader.swift in Sources */,
+				1BA44D5C215205050061E133 /* CadenceViewController.swift in Sources */,
+				1B4DD8912162F8A7006344A8 /* CommonTypes.swift in Sources */,
 				1B07966F210578C60095FFAC /* AppDelegate.swift in Sources */,
 				1B0796882107E7A30095FFAC /* VoiceSettingsViewController.swift in Sources */,
+				1BA44D622152DE230061E133 /* StrikeClassifier.mlmodel in Sources */,
+				1BA44D5A2151E1EB0061E133 /* FormViewController.swift in Sources */,
+				1BA44D5E21527F780061E133 /* ActivityHelper.swift in Sources */,
 				1B0796862107965F0095FFAC /* SettingsViewController.swift in Sources */,
-				1B079677210578C60095FFAC /* Secure_Run.xcdatamodeld in Sources */,
 				1B079695210820790095FFAC /* LocationManager.swift in Sources */,
 				1B079699210821210095FFAC /* FormatDisplay.swift in Sources */,
+				1B4DD88F2162F33C006344A8 /* VisionTrackerProcessor.swift in Sources */,
+				1B4DD88B2162E5C5006344A8 /* AssetsViewController.swift in Sources */,
 				1B0796A1210CABF50095FFAC /* ResultsViewCell.swift in Sources */,
 				1B07969F210BFC780095FFAC /* ResultsViewController.swift in Sources */,
+				1BA44D602152DE170061E133 /* RunClassifier2.mlmodel in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -369,8 +406,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.agilityfittech.Secure-Run";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -387,8 +424,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.agilityfittech.Secure-Run";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -416,16 +453,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		1B079675210578C60095FFAC /* Secure_Run.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				1B079676210578C60095FFAC /* Secure_Run.xcdatamodel */,
-			);
-			currentVersion = 1B079676210578C60095FFAC /* Secure_Run.xcdatamodel */;
-			path = Secure_Run.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
 		1B07968C210819D90095FFAC /* SecureRun.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (

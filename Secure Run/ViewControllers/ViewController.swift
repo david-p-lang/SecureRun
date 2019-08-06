@@ -6,13 +6,47 @@
 //  Copyright © 2018 David Lang. All rights reserved.
 //
 
+//includes code from https://www.raywenderlich.com/
+
+//
+/**
+ * Copyright (c) 2017 Razeware LLC
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * Notwithstanding the foregoing, you may not use, copy, modify, merge, publish,
+ * distribute, sublicense, create a derivative work, and/or sell copies of the
+ * Software in any work that is designed, intended, or marketed for pedagogical or
+ * instructional purposes related to programming, coding, application development,
+ * or information technology.  Permission for such use, copying, modification,
+ * merger, publication, distribution, sublicensing, creation of derivative works,
+ * or sale is expressly withheld.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
 import UIKit
 import CoreLocation
 import MapKit
 import AVFoundation
 import CoreMotion
+import MessageUI
 
-class ViewController: UIViewController, AVSpeechSynthesizerDelegate {
+class ViewController: UIViewController, AVSpeechSynthesizerDelegate, MFMessageComposeViewControllerDelegate {
 
     let defaults = UserDefaults.standard
     
@@ -52,6 +86,8 @@ class ViewController: UIViewController, AVSpeechSynthesizerDelegate {
     private let pedometer = CMPedometer()
     
     private let locationManager = LocationManager.shared
+    private var latitude: Double = 0.0
+    private var longitute: Double = 0.0
     private var seconds = 0
     private var secondsWhenPaused = 0
     private var secondsPaceStart  = 0
@@ -70,26 +106,30 @@ class ViewController: UIViewController, AVSpeechSynthesizerDelegate {
     @IBOutlet weak var distanceCaptionLabel: UILabel!
     @IBOutlet weak var firstOpenLabel: UILabel!
     @IBOutlet weak var firstOpenCaptionLabel: UILabel!
-    @IBOutlet weak var secondOpenLabel: UILabel!
-    @IBOutlet weak var secondOpenCaptionLabel: UILabel!
     
     @IBOutlet weak var workoutControlButton: UIButton!
     @IBOutlet weak var historyButton: UIButton!
     @IBOutlet weak var optionsButton: UIButton!
-    @IBOutlet weak var resumeButton: UIButton!
-    @IBOutlet weak var finishButton: UIButton!
     @IBOutlet weak var centralButtonsStack: UIStackView!
+    @IBOutlet weak var crumbButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        seconds = 0
+        distance = Measurement(value: 0, unit: UnitLength.meters)
+        
+        updateDisplay()
+        
             let audioSession = AVAudioSession.sharedInstance()
         do {
-            try audioSession.setCategory(AVAudioSessionCategoryPlayback, with: .duckOthers)
+            try audioSession.setCategory(convertFromAVAudioSessionCategory(AVAudioSession.Category.playback), with: .duckOthers)
         } catch {
             print(error)
         }
-            configureButtons()
-        
+        configureButton(button: workoutControlButton)
+        configureButton(button: historyButton)
+        configureButton(button: crumbButton)
+
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -111,25 +151,36 @@ class ViewController: UIViewController, AVSpeechSynthesizerDelegate {
         
         distanceLabel.text = "\(formattedDistance)"
         timeLabel.text = "\(formattedTime)"
-        firstOpenLabel.text = formattedPace
+        firstOpenLabel.text = "\(formattedPace)"
     }
     
     
     //MARK -- Save, Stop, Start
     
-    private func startRun(){
-        if secondsWhenPaused > 0 {
-            //TODO adjust for preferences
-            say(communication: "Paused")
-            seconds = secondsWhenPaused
-            distance = distanceWhenPaused
-        } else {
-            say(communication: "Start")
-            seconds = 0
-            distance = Measurement(value: 0, unit: UnitLength.meters)
-            locationList.removeAll()
-
+    @IBAction func workoutControl(_ sender: Any) {
+        if workoutState == WorkoutState.stopped {
+            print("workout started")
+            startRun()
+            workoutState = WorkoutState.started
+            workoutControlButton.setTitle("Pause", for: .normal)
+        } else if workoutState == WorkoutState.started {
+            print("workout paused")
+            pauseRun()
+            workoutState = WorkoutState.paused
+            workoutControlButton.setTitle("Stop", for: .normal)
+        } else if workoutState == WorkoutState.paused {
+            print("workout stopped")
+            workoutState = WorkoutState.stopped
+            stopTapped()
+            workoutControlButton.setTitle("Start", for: .normal)
         }
+        
+    }
+    private func startRun(){
+        seconds = 0
+        distance = Measurement(value: 0, unit: UnitLength.meters)
+        locationList.removeAll()
+        workoutState = WorkoutState.started
         updateDisplay()
         timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: {_ in
             self.eachSecond()
@@ -142,11 +193,20 @@ class ViewController: UIViewController, AVSpeechSynthesizerDelegate {
         secondsWhenPaused = seconds
         distanceWhenPaused = distance
         timer?.invalidate()
-        
+        workoutControlButton.setTitle("Stop", for: .normal)
+        workoutState = WorkoutState.paused
     }
     
     func resumeRun() {
-        
+        seconds = secondsWhenPaused
+        distance = distanceWhenPaused
+        updateDisplay()
+        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: {_ in
+            self.eachSecond()
+        })
+        startLocationUpdates()
+        workoutControlButton.setTitle("Pause", for: .normal)
+        workoutState = WorkoutState.started
     }
     
     private func stopRun() {
@@ -155,23 +215,38 @@ class ViewController: UIViewController, AVSpeechSynthesizerDelegate {
         distanceWhenPaused.value = 0
         secondsWhenPaused = 0
         updateDisplay()
+        workoutControlButton.setTitle("Start", for: .normal)
+        workoutState = WorkoutState.stopped
+    }
+    func resetRun() {
+        locationManager.stopUpdatingLocation()
+        distanceWhenPaused.value = 0
+        secondsWhenPaused = 0
+        distance.value = 0
+        seconds = 0
+        updateDisplay()
+        workoutControlButton.setTitle("Start", for: .normal)
+        workoutState = WorkoutState.stopped
     }
     
     func stopTapped() {
         let distanceMessage = "Distance: \(FormatDisplay.distance(distance.value))"
         let timeMessage = "\nTime: \(calculateDisplayTime(seconds: seconds))"
         let message = distanceMessage + timeMessage
+        pauseRun()
         let alertController = UIAlertController(title: "End Run?", message: message, preferredStyle: .actionSheet)
         alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { _ in
-            self.startRun()
+            self.resumeRun()
         }))
         alertController.addAction(UIAlertAction(title: "Save", style: .default, handler: {_ in
             self.stopRun()
             self.saveRun()
+            self.resetRun()
             self.performSegue(withIdentifier: "history", sender: nil)
         }))
         alertController.addAction(UIAlertAction(title: "Discard", style: .destructive, handler: { _ in
             self.stopRun()
+            self.resetRun()
             _ = self.navigationController?.popToRootViewController(animated: true)
         }))
         present(alertController, animated: true)
@@ -205,25 +280,23 @@ class ViewController: UIViewController, AVSpeechSynthesizerDelegate {
         updateDisplay()
     }
     
+    @IBAction func sendLocation(_ sender: Any) {
+        pauseRun()
+    }
     
-    @IBAction func workoutControl(_ sender: Any) {
-        if workoutState == WorkoutState.stopped {
-            print("workout started")
-            startRun()
-            workoutState = WorkoutState.started
-            workoutControlButton.setTitle("Pause", for: .normal)
-        } else if workoutState == WorkoutState.started {
-            print("workout paused")
-            pauseRun()
-            workoutState = WorkoutState.paused
-            workoutControlButton.setTitle("Stop", for: .normal)
-        } else if workoutState == WorkoutState.paused {
-            print("workout stopped")
-            workoutState = WorkoutState.stopped
-            stopTapped()
-            workoutControlButton.setTitle("Start", for: .normal)
+    @IBAction func sendCrumb(_ sender: Any) {
+        if (MFMessageComposeViewController.canSendText()) {
+            let controller = MFMessageComposeViewController()
+            controller.body = "Longitude: \n\(longitute) \n Latitude: \n\(latitude)"
+            controller.messageComposeDelegate = self
+            self.present(controller, animated: true, completion: nil)
         }
-  
+        pauseRun()
+    }
+    
+    func messageComposeViewController(_ controller: MFMessageComposeViewController, didFinishWith result: MessageComposeResult) {
+        //... handle sms screen actions
+        self.dismiss(animated: true, completion: nil)
     }
     
     private func startLocationUpdates() {
@@ -231,47 +304,25 @@ class ViewController: UIViewController, AVSpeechSynthesizerDelegate {
         locationManager.activityType = .fitness
         locationManager.distanceFilter = 10
         locationManager.startUpdatingLocation()
+        locationManager.pausesLocationUpdatesAutomatically = false
     }
     
     func calculateDisplayTime(seconds: Int) -> String {
         return String(seconds / 3600) + ":" + String((seconds % 3600) / 60) + ":" + String((seconds % 3600) % 60)
     }
     
-    func configureButtons() {
+    func configureButton(button: UIButton) {
         let shadowRadius:CGFloat = 0.5
         let shadowOpacity:Float = 1.0
         let shadowColor:CGColor = UIColor.darkGray.cgColor
         
-        workoutControlButton.layer.shadowOffset = CGSize(width: 0.5, height: 0.5)
-        workoutControlButton.layer.shadowRadius = shadowRadius
-        workoutControlButton.layer.shadowColor = shadowColor
-        workoutControlButton.layer.shadowOpacity = shadowOpacity
-        workoutControlButton.layer.cornerRadius = workoutControlButton.frame.size.height / 2
-        
-        historyButton.layer.shadowOffset = CGSize(width: 0.5, height: 0.5)
-        historyButton.layer.shadowRadius = shadowRadius
-        historyButton.layer.shadowColor = shadowColor
-        historyButton.layer.shadowOpacity = shadowOpacity
-        historyButton.layer.cornerRadius = historyButton.frame.size.height / 2
-        
-        optionsButton.layer.shadowOffset = CGSize(width: 0.5, height: 0.5)
-        optionsButton.layer.shadowRadius = shadowRadius
-        optionsButton.layer.shadowColor = shadowColor
-        optionsButton.layer.shadowOpacity = shadowOpacity
-        optionsButton.layer.cornerRadius = optionsButton.frame.size.height / 2
-        
-        resumeButton.layer.shadowOffset = CGSize(width: 0.5, height: 0.5)
-        resumeButton.layer.shadowRadius = shadowRadius
-        resumeButton.layer.shadowColor = shadowColor
-        resumeButton.layer.shadowOpacity = shadowOpacity
-        resumeButton.layer.cornerRadius = optionsButton.frame.size.height / 2
-        
-        finishButton.layer.shadowOffset = CGSize(width: 0.5, height: 0.5)
-        finishButton.layer.shadowRadius = shadowRadius
-        finishButton.layer.shadowColor = shadowColor
-        finishButton.layer.shadowOpacity = shadowOpacity
-        finishButton.layer.cornerRadius = optionsButton.frame.size.height / 2
+        button.layer.shadowOffset = CGSize(width: 0.5, height: 0.5)
+        button.layer.shadowRadius = shadowRadius
+        button.layer.shadowColor = shadowColor
+        button.layer.shadowOpacity = shadowOpacity
+        button.layer.cornerRadius = 2
     }
+    
     func applySettings() {
         
         distanceState = defaults.bool(forKey: VoiceSettings.distanceState.rawValue)
@@ -307,10 +358,12 @@ extension ViewController: CLLocationManagerDelegate {
             if let lastLocation = locationList.last {
                 let delta = newLocation.distance(from: lastLocation)
                 distance = distance + Measurement(value: delta, unit: UnitLength.meters)
+                longitute = lastLocation.coordinate.longitude
+                latitude = lastLocation.coordinate.latitude
                 //let coordinates = [lastLocation.coordinate, newLocation.coordinate]
                 //let region = MKCoordinateRegionMakeWithDistance(newLocation.coordinate, 500, 500)
                 //print("\(distance)")
-               //print("\(coordinates)")
+               //testLabel.text = "\(lastLocation.coordinate.longitude)  \(lastLocation.coordinate.latitude)"
                // print("\(region)")
             }
             locationList.append(newLocation)
@@ -318,3 +371,8 @@ extension ViewController: CLLocationManagerDelegate {
     }
 }
 
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromAVAudioSessionCategory(_ input: AVAudioSession.Category) -> String {
+	return input.rawValue
+}
