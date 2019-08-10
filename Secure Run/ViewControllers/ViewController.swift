@@ -122,7 +122,7 @@ class ViewController: UIViewController, AVSpeechSynthesizerDelegate, MFMessageCo
         
             let audioSession = AVAudioSession.sharedInstance()
         do {
-            try audioSession.setCategory(convertFromAVAudioSessionCategory(AVAudioSession.Category.playback), with: .duckOthers)
+            try audioSession.setCategory(.ambient)
         } catch {
             print(error)
         }

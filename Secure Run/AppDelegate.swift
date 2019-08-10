@@ -19,6 +19,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         let locationManager = LocationManager.shared
         locationManager.requestWhenInUseAuthorization()
+        
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        let navigationController = UINavigationController(nibName: nil, bundle: nil)
+        let flowLayout = UICollectionViewFlowLayout()
+        let firstViewController = AssetsViewController(collectionViewLayout: flowLayout)
+        navigationController.viewControllers = [firstViewController]
+        window?.rootViewController = navigationController
+        window?.makeKeyAndVisible()
+        
         return true
     }
 

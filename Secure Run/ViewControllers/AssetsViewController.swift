@@ -8,14 +8,7 @@ Implements the view controller showing available video assets.
 import UIKit
 import Photos
 
-class AssetsViewControllerCell: UICollectionViewCell {
-    class var reuseIdentifier: String {
-        return "AssetCell"
-    }
-    var representedAssetIdentifier: String = ""
-    
-    @IBOutlet weak var imageView: UIImageView!
-}
+
 
 class AssetsViewController: UICollectionViewController {
 
@@ -23,10 +16,16 @@ class AssetsViewController: UICollectionViewController {
         return "ShowTrackingView"
     }
     
+    // fetched photo assets
     var assets: PHFetchResult<PHAsset>?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // collectionview cell must be registered
+        collectionView.register(AssetsCell.self, forCellWithReuseIdentifier: AssetsCell.reuseIdentifier)
+        
+        //assure user privacy
         PHPhotoLibrary.requestAuthorization { (status) in
             if status == .authorized {
                 DispatchQueue.main.async {
@@ -50,9 +49,10 @@ class AssetsViewController: UICollectionViewController {
         // include all source types
         assetsOptions.includeAssetSourceTypes = [.typeCloudShared, .typeUserLibrary, .typeiTunesSynced]
         // show most recent first
-        assetsOptions.sortDescriptors = [NSSortDescriptor(key: "modificationDate", ascending: false)]
+        assetsOptions.sortDescriptors = []
         // fecth videos
-        assets = PHAsset.fetchAssets(with: .video, options: assetsOptions)
+        assets = PHAsset.fetchAssets(with: .image, options: assetsOptions)
+        print(assets?.count)
         // setup collection view
         self.recalculateItemSize()
         self.collectionView?.reloadData()
@@ -94,10 +94,6 @@ class AssetsViewController: UICollectionViewController {
             guard let avAsset = sender as? AVAsset else {
                 fatalError("Unexpected sender type")
             }
-//            guard let trackingController = segue.destination as? TrackingViewController else {
-//                fatalError("Unexpected destination view controller type")
-//            }
-//            trackingController.videoAsset = avAsset
         }
     }
 
@@ -111,6 +107,7 @@ class AssetsViewController: UICollectionViewController {
         guard let assets = self.assets else {
             return 0
         }
+        print(assets.count)
         return assets.count
     }
     
@@ -119,9 +116,8 @@ class AssetsViewController: UICollectionViewController {
             fatalError("Failed to find asset at index \(indexPath.item)")
         }
 
-        let genericCell = collectionView.dequeueReusableCell(withReuseIdentifier: AssetsViewControllerCell.reuseIdentifier,
-                                                             for: indexPath)
-        guard let cell = genericCell as? AssetsViewControllerCell else {
+        let genericCell = collectionView.dequeueReusableCell(withReuseIdentifier: AssetsCell.reuseIdentifier, for: indexPath)
+        guard let cell = genericCell as? AssetsCell else {
             return genericCell
         }
         cell.representedAssetIdentifier = asset.localIdentifier
@@ -140,7 +136,7 @@ class AssetsViewController: UICollectionViewController {
     
     // MARK: - UICollectionViewDelegate
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let cell = collectionView.cellForItem(at: indexPath) as? AssetsViewControllerCell else {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? AssetsCell else {
             fatalError("Failed to find cell as index path \(indexPath)")
         }
         let assetId = cell.representedAssetIdentifier

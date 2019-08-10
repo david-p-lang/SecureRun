@@ -24,6 +24,7 @@
 		1B0796A1210CABF50095FFAC /* ResultsViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B0796A0210CABF50095FFAC /* ResultsViewCell.swift */; };
 		1B0796A3210FD0090095FFAC /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1B0796A2210FD0090095FFAC /* CoreMotion.framework */; };
 		1B0A39A32124741A006444DB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1B0A39A22124741A006444DB /* Assets.xcassets */; };
+		1B4235FE22FDD1A3002A8CC4 /* AssetsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B4235FD22FDD1A3002A8CC4 /* AssetsCell.swift */; };
 		1B4DD88B2162E5C5006344A8 /* AssetsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B4DD88A2162E5C5006344A8 /* AssetsViewController.swift */; };
 		1B4DD88D2162E80F006344A8 /* VideoReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B4DD88C2162E80F006344A8 /* VideoReader.swift */; };
 		1B4DD88F2162F33C006344A8 /* VisionTrackerProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B4DD88E2162F33C006344A8 /* VisionTrackerProcessor.swift */; };
@@ -33,6 +34,7 @@
 		1BA44D5E21527F780061E133 /* ActivityHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BA44D5D21527F780061E133 /* ActivityHelper.swift */; };
 		1BA44D602152DE170061E133 /* RunClassifier2.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 1BA44D5F2152DE170061E133 /* RunClassifier2.mlmodel */; };
 		1BA44D622152DE230061E133 /* StrikeClassifier.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 1BA44D612152DE230061E133 /* StrikeClassifier.mlmodel */; };
+		1BBF008422FE26EC005F6ACD /* CaptureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BBF008322FE26EC005F6ACD /* CaptureViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +57,7 @@
 		1B0796A0210CABF50095FFAC /* ResultsViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsViewCell.swift; sourceTree = "<group>"; };
 		1B0796A2210FD0090095FFAC /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		1B0A39A22124741A006444DB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		1B4235FD22FDD1A3002A8CC4 /* AssetsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetsCell.swift; sourceTree = "<group>"; };
 		1B4DD88A2162E5C5006344A8 /* AssetsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssetsViewController.swift; sourceTree = "<group>"; };
 		1B4DD88C2162E80F006344A8 /* VideoReader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoReader.swift; sourceTree = "<group>"; };
 		1B4DD88E2162F33C006344A8 /* VisionTrackerProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VisionTrackerProcessor.swift; sourceTree = "<group>"; };
@@ -64,6 +67,7 @@
 		1BA44D5D21527F780061E133 /* ActivityHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityHelper.swift; sourceTree = "<group>"; };
 		1BA44D5F2152DE170061E133 /* RunClassifier2.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = RunClassifier2.mlmodel; sourceTree = "<group>"; };
 		1BA44D612152DE230061E133 /* StrikeClassifier.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = StrikeClassifier.mlmodel; sourceTree = "<group>"; };
+		1BBF008322FE26EC005F6ACD /* CaptureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,9 +150,11 @@
 				1BA44D592151E1EB0061E133 /* FormViewController.swift */,
 				1BA44D5B215205050061E133 /* CadenceViewController.swift */,
 				1B4DD88A2162E5C5006344A8 /* AssetsViewController.swift */,
+				1B4235FD22FDD1A3002A8CC4 /* AssetsCell.swift */,
 				1B4DD88C2162E80F006344A8 /* VideoReader.swift */,
 				1B4DD88E2162F33C006344A8 /* VisionTrackerProcessor.swift */,
 				1B4DD8902162F8A7006344A8 /* CommonTypes.swift */,
+				1BBF008322FE26EC005F6ACD /* CaptureViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -236,6 +242,7 @@
 			files = (
 				1B07968B210819980095FFAC /* CoreDataStack.swift in Sources */,
 				1B079697210820D50095FFAC /* UnitExtensions.swift in Sources */,
+				1B4235FE22FDD1A3002A8CC4 /* AssetsCell.swift in Sources */,
 				1B079671210578C60095FFAC /* ViewController.swift in Sources */,
 				1B07968E210819D90095FFAC /* SecureRun.xcdatamodeld in Sources */,
 				1B4DD88D2162E80F006344A8 /* VideoReader.swift in Sources */,
@@ -246,6 +253,7 @@
 				1BA44D622152DE230061E133 /* StrikeClassifier.mlmodel in Sources */,
 				1BA44D5A2151E1EB0061E133 /* FormViewController.swift in Sources */,
 				1BA44D5E21527F780061E133 /* ActivityHelper.swift in Sources */,
+				1BBF008422FE26EC005F6ACD /* CaptureViewController.swift in Sources */,
 				1B0796862107965F0095FFAC /* SettingsViewController.swift in Sources */,
 				1B079695210820790095FFAC /* LocationManager.swift in Sources */,
 				1B079699210821210095FFAC /* FormatDisplay.swift in Sources */,
